@@ -34,9 +34,7 @@ Optional components have been split into various files by component, commented o
 
 ### Important note on security
 
-The password variables (i.e. MYSQL root) have been left blank for the purposes of this recipe. It is strongly recommended to set a strong password.
-
-Also know that for developer convenience, some default PHP variable (ex: max memory) have been modified. These modifications may not be suitable for production. See provision.sh for details.
+The password variables (i.e. MYSQL root) have been left blank for the purposes of this recipe. It is strongly recommended to set a strong password. Also know that for developer convenience, some default PHP variable (ex: max memory) have been modified. These modifications may not be suitable for production. See provision.sh for details.
 
 ## Virtual Host config
 Apache virtual host configuration has been provided in the following optional scripts.
