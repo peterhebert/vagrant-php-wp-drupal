@@ -18,7 +18,7 @@ Ubuntu 14.04 LTS (Trusty) 32 bit base box. Feel free to change it to trusty64 if
 The password variables (i.e. MYSQL root) have been left blank for the purposes of this recipe. It is strongly recommended to set a strong password. Also know that for developer convenience, some default PHP variable (ex: max memory) have been modified. These modifications may not be suitable for production. See provision.sh for details.
 
 ## Provisioning
-A shell provisioning script is provided to install the software and set configuration. All provisioning scripts can be found in the 'scripts' folder.
+A shell provisioning script is provided to install the software and set configuration. All provisioning scripts can be found in the 'home/scripts' folder.
 
 ### LAMP stack
 The basic LAMP tack build is part of the main provision.sh file.

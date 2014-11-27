@@ -24,8 +24,8 @@ LOCALE_CODESET="en_CA.UTF-8"
 # Timezone
 TIMEZONE="America/Vancouver" # can be altered to your specific timezone, see http://manpages.ubuntu.com/manpages/jaunty/man3/DateTime::TimeZone::Catalog.3pm.html
 
-# MYSQL Settings - it's highly advised to set a root password
-MYSQL_ROOT_PASSWORD=""
+# MYSQL Settings - it's highly advised to set a strong root password
+MYSQL_ROOT_PASSWORD="notAs@f3P@SSw0rd"
 
 # PHP settings
 MEMORY_LIMIT="512M"
@@ -139,7 +139,7 @@ sudo hostname "$HOSTNAME"
 
 ##### CLEAN UP #####
 sudo dpkg --configure -a # when upgrade or install doesn't run well (e.g. loss of connection) this may resolve quite a few issues
-apt-get autoremove -y # remove obsolete packages
+sudo apt-get autoremove -y # remove obsolete packages
 
 ##### PROVISION CHECK #####
 

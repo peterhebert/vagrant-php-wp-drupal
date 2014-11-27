@@ -24,10 +24,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: "192.168.33.10"
 
   # shared folder
-  config.vm.synced_folder "./", "/home/vagrant/"  
+  config.vm.synced_folder "./home", "/home/vagrant/"  
 
   # Set share folder for Apache root - permissions to 777 so that apache can write files
-  config.vm.synced_folder "./public_html", "/var/www/html", mount_options: ['dmode=777','fmode=666']  
+  #config.vm.synced_folder "./public_html", "/var/www/html", mount_options: ['dmode=777','fmode=666']  
+  config.vm.synced_folder "./public_html", "/var/www/html"  
 
   # Virtualbox tweaks. See http://docs.vagrantup.com/v2/virtualbox/configuration.html
 	config.vm.provider "virtualbox" do |v|
