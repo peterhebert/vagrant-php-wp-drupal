@@ -24,6 +24,6 @@ fi
 
 # copy site defs
 echo "Copying Drupal site configuration and enabling virtual host..."
-sudo cp "$HOME/sites/$DRUPAL_DOMAIN.conf" /etc/apache2/sites-available
+sudo cp "/home/vagrant/sites/$DRUPAL_DOMAIN.conf" /etc/apache2/sites-available
 sudo a2ensite $DRUPAL_DOMAIN.conf
 sudo service apache2 reload

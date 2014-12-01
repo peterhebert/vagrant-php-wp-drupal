@@ -1,1 +1,22 @@
-scripts/.provision-check
+
+.vagrant/
+public_html/index.html
+
+# keep home folder clean of package info and history
+home/.cache/
+home/.composer/
+home/.gem/
+home/.gnupg/
+home/.npm/
+home/.rvm/
+
+home/.bash_history
+home/.bash_profile
+home/.bashrc
+home/.gitconfig
+home/.nano_history
+home/.profile
+home/.zlogin
+home/.zshrc
+
+home/scripts/.provision-check

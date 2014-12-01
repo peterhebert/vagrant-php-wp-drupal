@@ -95,11 +95,14 @@ sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd ph
 # Install Composer
 #/home/vagrant/scripts/composer.sh
 
-# Install Drush via Composer
+# Install Drush globally via Composer
 #/home/vagrant/scripts/drush.sh
 
 # Install node.js
 #/home/vagrant/scripts/nodejs.sh
+
+#Install Grunt task runner (requires node.js)
+#/home/vagrant/scripts/grunt-cli.sh
 
 # Install LESS css preprocessor (requires node.js)
 #/home/vagrant/scripts/less.sh
@@ -107,7 +110,7 @@ sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd ph
 # Install Ruby
 #/home/vagrant/scripts/ruby.sh
 
-# Install Sass
+# Install Sass (requires Ruby)
 #/home/vagrant/scripts/sass.sh
 
 ##### ENVIRONMENT CONFIGURATION #####
@@ -123,9 +126,12 @@ sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/apac
 sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php5/cli/php.ini
 sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php5/cli/php.ini
 sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/cli/php.ini
-sudo service apache2 restart # restart apache so latest php config is picked up
+# enable mcrypt module
+sudo php5enmod mcrypt
+# restart apache so latest php config is picked up
+sudo service apache2 restart 
 
-# Virtual Hosts
+###### Virtual Hosts #######
 
 # WordPress
 #/home/vagrant/scripts/vhost-wordpress.sh

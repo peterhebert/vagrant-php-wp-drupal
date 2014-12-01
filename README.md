@@ -15,7 +15,7 @@ Ubuntu 14.04 LTS (Trusty) 32 bit base box. Feel free to change it to trusty64 if
 
 ### Important note on security
 
-The password variables (i.e. MYSQL root) have been left blank for the purposes of this recipe. It is strongly recommended to set a strong password. Also know that for developer convenience, some default PHP variable (ex: max memory) have been modified. These modifications may not be suitable for production. See provision.sh for details.
+A sample MYSQL root password has been set for the purposes of this recipe. It is **strongly** recommended to change this value to your own strong password. Also know that for developer convenience, some default PHP variable (ex: max memory) have been modified. These modifications may not be suitable for production. See provision.sh for details.
 
 ## Provisioning
 A shell provisioning script is provided to install the software and set configuration. All provisioning scripts can be found in the 'home/scripts' folder.
@@ -28,16 +28,20 @@ The basic LAMP tack build is part of the main provision.sh file.
 * PHP5 with sensible configuration for Drupal and WordPress requirements
 
 ### Optional components
-These components have been split into separate scripts, each is commented out by default. Enable the ones you want by removing the # at the beginning of the line.
+These components have been split into separate scripts. Enable the ones you want by removing the # at the beginning of the line.
 
 * git
 * Drush
 * Composer
 * node.js
+* Grunt
 * LESS
 * Ruby (via RVM)
 * Sass
 
+#### Notes
+
+* **git** - remember to set your name and email in the variables at the top of the home/scripts/git.sh script.
 ### Virtual Host config
 Apache virtual host configuration has been provided in the following optional scripts.
 

@@ -24,6 +24,6 @@ fi
 
 # copy site defs
 echo "Copying WordPress site configuration and enabling virtual host..."
-sudo cp "$HOME/sites/$WP_DOMAIN.conf" /etc/apache2/sites-available
+sudo cp "/home/vagrant/sites/$WP_DOMAIN.conf" /etc/apache2/sites-available
 sudo a2ensite $WP_DOMAIN.conf
 sudo service apache2 reload
