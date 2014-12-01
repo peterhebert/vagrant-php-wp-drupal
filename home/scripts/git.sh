@@ -1,8 +1,8 @@
 #! /bin/bash
 
-# git settings - enter your details
-GIT_NAME=""
-GIT_EMAIL=""
+# git settings - update with your details
+GIT_NAME="First Last"
+GIT_EMAIL="email@site.com"
 
 echo "[vagrant provisioning] Installing git version control..."
 sudo apt-get install -y git
