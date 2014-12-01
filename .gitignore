@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+scripts/.provision-check
+>>>>>>> 398786ee3d81361f912654d4ad381e4bf239f227
 .vagrant/
 public_html/index.html
 
@@ -19,4 +23,8 @@ home/.profile
 home/.zlogin
 home/.zshrc
 
+<<<<<<< HEAD
 home/scripts/.provision_check
+=======
+
+>>>>>>> 398786ee3d81361f912654d4ad381e4bf239f227

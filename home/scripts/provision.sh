@@ -95,7 +95,6 @@ sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd ph
 # Install Composer
 #/home/vagrant/scripts/composer.sh
 
-# Install Drush globally via Composer
 #/home/vagrant/scripts/drush.sh
 
 # Install node.js
@@ -109,6 +108,7 @@ sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd ph
 
 # Install Ruby
 #/home/vagrant/scripts/ruby.sh
+
 
 # Install Sass (requires Ruby)
 #/home/vagrant/scripts/sass.sh
