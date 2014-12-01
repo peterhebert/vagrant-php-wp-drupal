@@ -19,4 +19,4 @@ home/.profile
 home/.zlogin
 home/.zshrc
 
-home/scripts/.provision-check
+home/scripts/.provision_check
