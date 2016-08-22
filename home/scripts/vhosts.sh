@@ -1,9 +1,9 @@
 #! /bin/bash
 
-## declare an array variable
+## Domains to configure
 declare -a sites=("wordpress.dev" "drupal.dev")
 
-## now loop through the above array
+## now loop through the above array and create the virtual hosts
 for i in "${sites[@]}"
 do
 

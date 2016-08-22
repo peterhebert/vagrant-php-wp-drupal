@@ -34,22 +34,22 @@ These components have been split into separate scripts. Enable the ones you want
 * Drush
 * Composer
 * node.js
-* Grunt
+* Grunt and Gulp task runners
 * LESS
-* Ruby (via RVM)
+* Ruby (via RVM) - optionally with Rails
 * Sass
 
 #### Notes
 
 * **git** - remember to set your name and email in the variables at the top of the home/scripts/git.sh script.
-### Virtual Host config
-Apache virtual host configuration has been provided in the following optional scripts.
 
-* Drupal (vhost-drupal.sh)
-* WordPress (vhost-wordpress.sh)
+### Virtual Host config
+An Apache virtual host configuration script has been provided. Just enter your domains separated by spaces in the array on line 4 of home/scripts/vhosts.sh
+
+    declare -a sites=("wordpress.dev" "drupal.dev")
 
 ## About the author
-[Peter Hebert](http://peterhebert.com/) is a web development consultant.
+[Peter Hebert](http://peterhebert.com/) is a web developer, designer and IT consultant. [Rex Rana](https://rexrana.ca/) is his company. 
 
 ## Additional resources and credits
 I have based this environment on information from: 
