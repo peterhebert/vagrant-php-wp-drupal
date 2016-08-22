@@ -1,14 +1,15 @@
 #! /bin/bash
 
-# 6.* = latest stable
-# dev-master = latest dev - 7.x - required for Drupal 8
-# full number = prefered specific Drush release from https://github.com/drush-ops/drush/releases
-DRUSH_VERSION="6.*"
+# Download latest stable release using the code below or browse to github.com/drush-ops/drush/releases.
+php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush
+# Or use our upcoming release: php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush
 
-echo "Installing Drush via Composer..."
-# Install a specific version of Drush
-composer global require drush/drush:$DRUSH_VERSION
+# Test your install.
+php drush core-status
 
-# set the path to drush
-sudo ln -s $HOME/.composer/vendor/bin/drush /usr/bin/drush
+# Make `drush` executable as a command from anywhere. Destination can be anywhere on $PATH.
+chmod +x drush
+sudo mv drush /usr/local/bin
 
+# Optional. Enrich the bash startup file with completion and aliases.
+drush init

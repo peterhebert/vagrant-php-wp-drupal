@@ -28,9 +28,9 @@ TIMEZONE="America/Vancouver" # can be altered to your specific timezone, see htt
 MYSQL_ROOT_PASSWORD="notAs@f3P@SSw0rd"
 
 # PHP settings
-MEMORY_LIMIT="512M"
-UPLOAD_MAX_FILESIZE="128M"
-POST_MAX_SIZE="128M"
+MEMORY_LIMIT="384M"
+UPLOAD_MAX_FILESIZE="12M"
+POST_MAX_SIZE="32M"
 
 #----- end of configurable variables -----#
 
@@ -100,15 +100,14 @@ sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd ph
 # Install node.js
 #/home/vagrant/scripts/nodejs.sh
 
-#Install Grunt task runner (requires node.js)
-#/home/vagrant/scripts/grunt-cli.sh
+#Install Grunt and Gulp task runners (requires node.js)
+#/home/vagrant/scripts/grunt-gulp.sh
 
 # Install LESS css preprocessor (requires node.js)
 #/home/vagrant/scripts/less.sh
 
 # Install Ruby
 #/home/vagrant/scripts/ruby.sh
-
 
 # Install Sass (requires Ruby)
 #/home/vagrant/scripts/sass.sh
@@ -129,15 +128,10 @@ sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/cli/
 # enable mcrypt module
 sudo php5enmod mcrypt
 # restart apache so latest php config is picked up
-sudo service apache2 restart 
+sudo service apache2 restart
 
 ###### Virtual Hosts #######
-
-# WordPress
-#/home/vagrant/scripts/vhost-wordpress.sh
-
-# Drupal
-#/home/vagrant/scripts/vhost-drupal.sh
+/home/vagrant/scripts/vhosts.sh
 
 # Hostname
 echo "Setting hostname..."
