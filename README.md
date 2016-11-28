@@ -4,14 +4,16 @@ vagrant-php-wp-drupal
 A Vagrant environment for PHP, WordPress and Drupal development.
 
 ## Base box
-Ubuntu 14.04 LTS (Trusty) 32 bit base box. Feel free to change it to trusty64 if you prefer.
-
-## Before starting
+Ubuntu 14.04 LTS (Trusty Tahr) 32 bit base box. Feel free to change it to 'ubuntu/trusty64' if you prefer. Changing to 16.04 will require adjusting the provisioning script (this will be done in a future release)
 
 ### Dependencies / Prerequisites
 
 * [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](http://downloads.vagrantup.com/)
+
+#### Setting provisioner variables
+
+The top section of the provision.sh script sets up variables for the setup of the various pieces. Change their values to personalize your server.
 
 ### Important note on security
 
@@ -21,41 +23,28 @@ A sample MYSQL root password has been set for the purposes of this recipe. It is
 A shell provisioning script is provided to install the software and set configuration. All provisioning scripts can be found in the 'home/scripts' folder.
 
 ### LAMP stack
-The basic LAMP tack build is part of the main provision.sh file.
+The basic LAMP stack build and most common web development tools are part of the main provision.sh file.
 
 * Apache web server
 * MySQL database server
 * PHP5 with sensible configuration for Drupal and WordPress requirements
 
-### Optional components
-These components have been split into separate scripts. Enable the ones you want by removing the # at the beginning of the line.
-
 * git
-* Drush
-* Composer
 * node.js
 * Grunt and Gulp task runners
 * LESS
 * Ruby (via RVM) - optionally with Rails
 * Sass
 
-#### Notes
+### Optional components
+These components that specically pertain to WordPress and Drupal have been split into separate scripts. Enable the ones you want by removing the # at the beginning of the line.
 
-* **git** - remember to set your name and email in the variables at the top of the home/scripts/git.sh script.
+* Composer
+* Drush
+* WP-CLI
 
-### Virtual Host config
-An Apache virtual host configuration script has been provided. Just enter your domains separated by spaces in the array on line 4 of home/scripts/vhosts.sh
-
-    declare -a sites=("wordpress.dev" "drupal.dev")
+### Virtual Hosts
+There is a 'sites-available' folder in the root, which gets mapped to '/etc/apache2/sites-available'. Place your Apache virtual host files here, and then use 'sudo a2ensite SITENAME.conf' to enable the virtual host. If you install the   [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin, you can have it automatically update your host machine's hosts file.
 
 ## About the author
-[Peter Hebert](http://peterhebert.com/) is a web developer, designer and IT consultant. [Rex Rana](https://rexrana.ca/) is his company. 
-
-## Additional resources and credits
-I have based this environment on information from: 
-
-* [Vagrant docs](http://docs.vagrantup.com/)
-* Jurgen Verhasselt - https://github.com/sjugge
-* Renaud Cuny - https://github.com/rcuny
-* Vitor Carreira - https://gist.github.com/vcarreira/9820318
- 
+[Peter Hebert](http://peterhebert.com/) is a web developer, designer and IT consultant. [Rex Rana](https://rexrana.ca/) is his company.

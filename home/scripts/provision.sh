@@ -32,6 +32,10 @@ MEMORY_LIMIT="384M"
 UPLOAD_MAX_FILESIZE="12M"
 POST_MAX_SIZE="32M"
 
+# git settings - update with your details
+GIT_NAME="First Last"
+GIT_EMAIL="email@site.com"
+
 #----- end of configurable variables -----#
 
 
@@ -88,29 +92,44 @@ echo "Installing PHP5 and extensions"
 sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd php5-curl php5-common php5-json php5-readline php5-cli
 
 ##### OPTIONAL COMPONENTS #####
-
 # Install and configure git
-#/home/vagrant/scripts/git.sh
+
+echo "[vagrant provisioning] Installing git version control..."
+sudo apt-get install -y git
+git config --global user.name "$GIT_NAME"
+git config --global user.email "$GIT_EMAIL"
 
 # Install Composer
-#/home/vagrant/scripts/composer.sh
+/home/vagrant/scripts/composer.sh
 
-#/home/vagrant/scripts/drush.sh
+# Drush
+/home/vagrant/scripts/drush.sh
+
+# WP-CLI
+/home/vagrant/scripts/wp-cli.sh
 
 # Install node.js
-#/home/vagrant/scripts/nodejs.sh
+curl -sL https://deb.nodesource.com/setup | sudo -E bash -
+sudo apt-get install -y nodejs
 
 #Install Grunt and Gulp task runners (requires node.js)
-#/home/vagrant/scripts/grunt-gulp.sh
+echo "Installing Grunt and Gulp Task Runners (command-line interface)"
+sudo npm install -g grunt-cli
+sudo npm install -g gulp-cli
 
 # Install LESS css preprocessor (requires node.js)
-#/home/vagrant/scripts/less.sh
+echo "Installing LESS"
+sudo npm install -g less
 
-# Install Ruby
-#/home/vagrant/scripts/ruby.sh
+# Install Ruby and Sass
+echo "Importing public key..."
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
-# Install Sass (requires Ruby)
-#/home/vagrant/scripts/sass.sh
+echo "Installing Ruby via RVM..."
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+echo "Installing SASS"
+sudo gem install sass
 
 ##### ENVIRONMENT CONFIGURATION #####
 
@@ -129,9 +148,6 @@ sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/cli/
 sudo php5enmod mcrypt
 # restart apache so latest php config is picked up
 sudo service apache2 restart
-
-###### Virtual Hosts #######
-/home/vagrant/scripts/vhosts.sh
 
 # Hostname
 echo "Setting hostname..."
