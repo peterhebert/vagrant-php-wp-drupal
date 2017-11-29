@@ -6,6 +6,12 @@ A Vagrant environment for PHP, WordPress and Drupal development.
 ## Base box
 Ubuntu 16.04 LTS (Xenial Xerus) 64 bit base box, from https://app.vagrantup.com/rexrana/boxes/lamp-xenial64
 
+To use other LTS versions of Ubuntu, use the appropriate branch:
+* 16.04 (Xenial Xerus) => beanch 'xenial64'
+* 14.04 (Trusty Tahr) 32 bit => branch 'trusty32'
+
+The 'master' branch will always be based on the current LTS release of Ubuntu. version branches will be named by the Ubuntu codename, and development will happen within these branches, before merging the latest LTS changes into 'master'
+
 ## pre-installed LAMP stack as part of the base box
 * PHP 7
 * mysql
