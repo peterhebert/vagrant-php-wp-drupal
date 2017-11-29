@@ -5,8 +5,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  ## define which box to use - Ubuntu 14.04 (Trusty Tahr) 32-bit
-  config.vm.box = "ubuntu/trusty32"
+  ## Ubuntu 16.04 (Xenial Xerus) 64-bit LAMP base box
+  config.vm.box = "rexrana/lamp-xenial64"
 
   ## set hostname
   config.vm.hostname = "web-dev.local"
@@ -21,10 +21,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "192.168.33.101"
+  config.vm.network :private_network, ip: "192.168.33.110"
 
   # shared folders
-  config.vm.synced_folder "./home", "/home/vagrant/"
+  config.vm.synced_folder "./scripts", "/home/vagrant/scripts"
   config.vm.synced_folder "./sites-available", "/etc/apache2/sites-available/"
 
   # Set share folder for Apache root - set permissions so Apache group can write files, and Vagrant is owner
@@ -35,8 +35,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # optionally use auto hosts updater - make sure to install plugin on host first:
   # use: 'vagrant plugin install vagrant-hostsupdater'
-
-  # config.hostsupdater.aliases = ["wordpress.dev", "drupal8.dev"]
+  if Vagrant.has_plugin?("vagrant-hostsupdater")
+    config.hostsupdater.aliases = ["wordpress.dev", "drupal8.dev"]
+  end
 
   # Virtualbox tweaks. See http://docs.vagrantup.com/v2/virtualbox/configuration.html
 	config.vm.provider "virtualbox" do |v|
@@ -44,6 +45,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	end
 
   ## Provisioning
-  config.vm.provision "shell", path: "./home/scripts/provision.sh"
+  config.vm.provision "shell", path: "./scripts/provision.sh"
 
 end
