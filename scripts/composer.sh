@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# install dependencies
+sudo apt-get install curl php-cli php-mbstring git unzip
+
 cd ~
 
 EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
@@ -8,7 +11,7 @@ ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
 
 if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]
 then
-    php composer-setup.php --quiet
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet
     RESULT=$?
     rm composer-setup.php
     exit $RESULT

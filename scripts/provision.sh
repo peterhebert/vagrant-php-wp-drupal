@@ -22,10 +22,9 @@ LOCALE_LANGUAGE="en_CA" # can be altered to your prefered locale, see http://doc
 LOCALE_CODESET="en_CA.UTF-8"
 
 # Timezone
-TIMEZONE="America/Vancouver" # can be altered to your specific timezone, see http://manpages.ubuntu.com/manpages/jaunty/man3/DateTime::TimeZone::Catalog.3pm.html
-
-# MYSQL Settings - it's highly advised to set a strong root password
-MYSQL_ROOT_PASSWORD="notAs@f3P@SSw0rd"
+# can be altered to your specific timezone
+# see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+TIMEZONE="America/Vancouver"
 
 # PHP settings
 MEMORY_LIMIT="384M"
@@ -58,44 +57,22 @@ fi
 sudo chmod +x /home/vagrant/scripts/*.sh
 
 # Set Locale, see https://help.ubuntu.com/community/Locale#Changing_settings_permanently
-echo "Setting locale..."
-sudo locale-gen $LOCALE_LANGUAGE $LOCALE_CODESET
+# echo "Setting locale..."
+# sudo locale-gen $LOCALE_LANGUAGE $LOCALE_CODESET
 
 # Set timezone, for unattended info see https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28unattended.29
-echo "Setting timezone..."
-echo $TIMEZONE | sudo tee /etc/timezone
-sudo dpkg-reconfigure --frontend noninteractive tzdata
+# echo "Setting timezone..."
+# echo $TIMEZONE | sudo tee /etc/timezone
+# sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 # Download and update package lists
 echo "Package manager updates..."
 sudo apt-get update
 
-# install core dependencies
-echo "Installing core dependencies..."
-sudo apt-get install -y python-software-properties python g++ make build-essential software-properties-common
-
-# install Apache server
-echo "Installing Apache web server..."
-sudo apt-get install -y apache2
-sudo a2enmod rewrite
-sudo service apache2 restart
-
-# Install and Configure MySQL Server
-export DEBIAN_FRONTEND=noninteractive
-sudo debconf-set-selections <<< "mysql-server mysql-server/root-password password $MYSQL_ROOT_PASSWORD"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -f -y mysql-server
-sudo apt-get install -y php5-mysql
-
-# Install and Configure PHP5
-echo "Installing PHP5 and extensions"
-sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php-pear php5-gd php5-curl php5-common php5-json php5-readline php5-cli
-
 ##### OPTIONAL COMPONENTS #####
 # Install and configure git
 
-echo "[vagrant provisioning] Installing git version control..."
-sudo apt-get install -y git
+echo "Configuring git..."
 git config --global user.name "$GIT_NAME"
 git config --global user.email "$GIT_EMAIL"
 
@@ -109,43 +86,31 @@ git config --global user.email "$GIT_EMAIL"
 /home/vagrant/scripts/wp-cli.sh
 
 # Install node.js
-curl -sL https://deb.nodesource.com/setup | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-#Install Grunt and Gulp task runners (requires node.js)
-echo "Installing Grunt and Gulp Task Runners (command-line interface)"
-sudo npm install -g grunt-cli
+# Install Gulp task runner (requires node.js)
+echo "Installing Gulp Task Runner (command-line interface)"
 sudo npm install -g gulp-cli
 
-# Install LESS css preprocessor (requires node.js)
-echo "Installing LESS"
-sudo npm install -g less
-
 # Install Ruby and Sass
-echo "Importing public key..."
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-
-echo "Installing Ruby via RVM..."
-\curl -sSL https://get.rvm.io | bash -s stable --ruby
-
-echo "Installing SASS"
-sudo gem install sass
+/home/vagrant/scripts/rvm-ruby-sass.sh
 
 ##### ENVIRONMENT CONFIGURATION #####
 
 # Optimize PHP settings
 
-echo "Configuring PHP5..."
-# Change settings for apache2 PHP
-sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php5/apache2/php.ini
-sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php5/apache2/php.ini
-sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/apache2/php.ini
-# Change settings for command line interface PHP (used by Drush)
-sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php5/cli/php.ini
-sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php5/cli/php.ini
-sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/cli/php.ini
+echo "Configuring PHP"
+# Change settings for PHP in apache2
+sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php/7.0/apache2/php.ini
+# Change settings for PHP command line interface
+sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php/7.0/cli/php.ini
+sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php/7.0/cli/php.ini
+sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php/7.0/cli/php.ini
 # enable mcrypt module
-sudo php5enmod mcrypt
+sudo phpenmod mcrypt
 # restart apache so latest php config is picked up
 sudo service apache2 restart
 
@@ -155,7 +120,7 @@ sudo hostname "$HOSTNAME"
 
 ##### CLEAN UP #####
 sudo dpkg --configure -a # when upgrade or install doesn't run well (e.g. loss of connection) this may resolve quite a few issues
-sudo apt-get autoremove -y # remove obsolete packages
+sudo apt autoremove -y # remove obsolete packages
 
 ##### PROVISION CHECK #####
 
@@ -163,4 +128,4 @@ sudo apt-get autoremove -y # remove obsolete packages
 echo "Creating .provision_check file..."
 cd /home/vagrant/scripts
 touch .provision_check
-cd ../
+cd /home/vagrant/
