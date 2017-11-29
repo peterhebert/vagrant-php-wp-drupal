@@ -4,7 +4,7 @@ vagrant-php-wp-drupal
 A Vagrant environment for PHP, WordPress and Drupal development.
 
 ## Base box
-Ubuntu 14.04 LTS (Trusty Tahr) 32 bit base box. Feel free to change it to 'ubuntu/trusty64' if you prefer. Changing to 16.04 will require adjusting the provisioning script (this will be done in a future release)
+Ubuntu 14.04 LTS (Trusty Tahr) 32 bit base box. To use 16.04 LTS, use the 'master' or 'xenial64' branch instead. The 'master' branch will always be based on the latest LTS release of Ubuntu.
 
 ### Dependencies / Prerequisites
 
